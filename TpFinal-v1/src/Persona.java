@@ -30,7 +30,8 @@ public class Persona implements Serializable {
     }
 
     public String getNombre() {
-        return nombre;
+        String output = nombre.substring(0,1).toUpperCase() + nombre.substring(1).toLowerCase();
+        return output;
     }
 
     public String getDNI() {
@@ -62,7 +63,9 @@ public class Persona implements Serializable {
 
 
     public String getApellido() {
-        return apellido;
+        String output = apellido.substring(0,1).toUpperCase() + apellido.substring(1).toLowerCase();
+
+        return output;
     }
 
     public String getFechaNacimiento() {
@@ -135,8 +138,10 @@ public class Persona implements Serializable {
         return persona;
     }
 
+
+
     @Override
     public String toString() {
-        return "\n Nombre: " + nombre + "\n Apellido: " + apellido + "\n DNI: " + DNI + "\n Edad: " + edad + "\n FechaNacimiento='" + fechaNacimiento + "\n Genero: " + genero;
+        return "\n Nombre: " + getNombre() + "\n Apellido: " + getApellido() + "\n DNI: " + DNI + "\n Edad: " + edad + "\n FechaNacimiento: " + fechaNacimiento + "\n Genero: " +getGenero();
     }
 }

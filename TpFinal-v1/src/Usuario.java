@@ -1,6 +1,10 @@
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Usuario extends Persona {
 
     private int id; //unico atributo que tanto admin como usuario no pueden modificar
+    private static int cantUsuariosCreados=0;
     private String nombreUsuario;
     private String clave;
     private String mail;
@@ -11,7 +15,7 @@ public class Usuario extends Persona {
     public Usuario (String nombreP, String apellidoP, String dniP, int edadP, String fechaNacP, int generoP, String nombre_Usuario, String clave_Usuario, String mail_Usuario, String telefono_Usuario){
 
         super(nombreP,apellidoP,dniP,edadP,fechaNacP,generoP);
-        //id = verMaquinaExpendedora (metodo autoincremental)
+        this.id = IdUsuario();
         nombreUsuario = nombre_Usuario;
         clave = clave_Usuario;
         mail = mail_Usuario;
@@ -21,7 +25,7 @@ public class Usuario extends Persona {
 
     public Usuario (){
         super("", "", "", 0, "", 0);
-        //this.id =
+        this.id = IdUsuario();
         this.nombreUsuario = "";
         this.clave = "";
         this.mail = "";
@@ -30,9 +34,17 @@ public class Usuario extends Persona {
 
     }
 
-    /*public int getId() {
+    public int getId() {
         return id;
-    }*/
+    }
+
+    public int IdUsuario() //método autoincremental de ID
+    {
+        id = cantUsuariosCreados + 1;
+        cantUsuariosCreados += 1;
+
+        return id;
+    }
 
     public String getNombreUsuario() {
         return nombreUsuario;
@@ -74,14 +86,35 @@ public class Usuario extends Persona {
         this.estado = estado;
     }
 
-    /*@Override
+    public String devuelveHabilitadoOno (){
+        String aux = "";
+        if (getEstado()==1){
+            aux = "\n Usuario habilitado";
+        }
+        else if(getEstado()==0){
+            aux = "\n Usuario dado de baja";
+        }
+        return aux;
+    }
+
+    @Override
     public String toString() {
-        return  super.toString() + "\n Id de usuario:" +g\n Usuario: " +getNombreUsuario() + +
-                ", nombreUsuario='" + nombreUsuario + '\'' +
-                ", clave='" + clave + '\'' +
-                ", mail='" + mail + '\'' +
-                ", telefono='" + telefono + '\'' +
-                ", estado=" + estado +
-                '}';
-    }*/
+        return  super.toString() + "\n Id de usuario:" +getId() +"\n Usuario: " +getNombreUsuario() + "\n Clave: " +getClave() + "\n Mail: " +getMail() + "\n Telefono:  " +getTelefono() + devuelveHabilitadoOno();
+    }
+
+    public JSONObject toJSONObject()throws JSONException {
+            JSONObject jsonObject = new JSONObject();
+
+            jsonObject = super.toJSONObject();
+            jsonObject.put("Id de usuario", getId());
+            jsonObject.put("Nombre de usuario", getNombreUsuario());
+            jsonObject.put("Clave", getClave());
+            jsonObject.put("Mail", getMail());
+            jsonObject.put("Telefono", getTelefono());
+            jsonObject.put("Estado", getEstado());
+
+            return jsonObject;
+        }
+
 }
+
