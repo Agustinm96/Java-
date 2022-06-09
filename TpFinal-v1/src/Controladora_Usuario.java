@@ -1,4 +1,7 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Controladora_Usuario {
@@ -24,7 +27,7 @@ public class Controladora_Usuario {
         teclado.nextLine();
 
         System.out.println("\n Fecha de nacimiento: ");
-        String fechaNac_Persona = teclado.nextLine();
+        String fechaNac_Persona = validaFechaNacimiento();
 
         System.out.println("\n Seleccione una opcion: ");
         System.out.println("\n 1- Masculino.");
@@ -35,8 +38,8 @@ public class Controladora_Usuario {
 
         teclado.nextLine();
 
-        System.out.println("\n Nombre de usuario: ");
-        String nombre_Usuario = teclado.nextLine();
+        System.out.println("\n Nombre de usuario: "); //no probado aun
+        String nombre_Usuario = validaUsuario();
 
         System.out.println("\n Clave: ");
         String clave_Usuario =  validaClave();
@@ -89,6 +92,38 @@ public class Controladora_Usuario {
             clave2 = teclado.nextLine();
         }
         return clave1;
+    }
+
+    public static String validaUsuario (){
+        String usuario = teclado.nextLine();
+        while(usuario.length()>30){
+            System.out.println("\n Demasiados caracteres!! Ingrese nuevamente. Recuerde, deben ser menos de 30");
+            usuario = teclado.nextLine();
+        }
+        return usuario;
+    }
+
+    public static String validaFechaNacimiento (){//Falta validar el año (deja ingresar > al actual)
+        boolean rta = false;
+        String fechaNacimiento= teclado.nextLine();
+        String fechaSalida = "";
+        while(!rta){
+            try {
+                Date fecha = new SimpleDateFormat("dd/MM/yyyy").parse(fechaNacimiento);
+                fechaSalida = new SimpleDateFormat("dd/MM/yyyy").format(fecha);
+                if(!fechaNacimiento.equals(fechaSalida)){
+                    System.out.println("\n Ingrese nuevamente ");
+                    fechaNacimiento= teclado.nextLine();
+                }
+                else{
+                    rta = true;
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+        }
+        return fechaSalida;
     }
 
 
