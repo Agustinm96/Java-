@@ -39,7 +39,7 @@ public class Controladora_Usuario {
         teclado.nextLine();
 
         System.out.println("\n Nombre de usuario: "); //no probado aun
-        String nombre_Usuario = validaUsuario();
+        String nombre_Usuario = validaUsuario(); /**Deberia haber validacion por si nombre de usuario ya existe**/
 
         System.out.println("\n Clave: ");
         String clave_Usuario =  validaClave();

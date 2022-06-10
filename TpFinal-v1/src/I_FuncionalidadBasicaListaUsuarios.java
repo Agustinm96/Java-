@@ -37,4 +37,12 @@ public interface I_FuncionalidadBasicaListaUsuarios {
      * @return
      */
     Usuario buscarUsuario(int index);
+
+    /**
+     * Devuelve un usuario en particular buscandolo a trav�z del indice de la lista
+     *
+     * @param nombreUsuario
+     * @return
+     */
+    boolean buscarUsuarioPorNombre(String nombreUsuario);
 }
